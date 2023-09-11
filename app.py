@@ -21,6 +21,27 @@ def dashboard():
     row = cur.fetchone()
     fullname = row[0]
     return render_template('dashboard.html', user=fullname)
+@app.route('/dashboard/new-category')
+def new_category():
+    return render_template('new-category.html')
+@app.route('/dashboard/save_category', methods=('GET', 'POST'))
+def save_category():
+    category_name = request.form['category_name']
+    conn = sqlite3.connect('PostDB.db')
+    select_query = '''
+        SELECT * FROM category WHERE category_name = ?
+    '''
+    cur = conn.execute(select_query, (category_name, ))
+    rows = cur.fetchall()
+    if len(rows) > 0:
+        msg = 'Category ' + category_name + ' is existed'
+    else:
+        insert_query = 'INSERT INTO category (category_name) VALUES (?) '
+        cur2 = conn.execute(insert_query, (category_name,))
+        conn.commit()
+        conn.close()
+        msg = 'Insert ' + category_name + ' successfully'
+    return render_template('save-category.html', msg=msg)
 @app.route('/check_login', methods=('GET', 'POST'))
 def check_login():
     pass

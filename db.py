@@ -23,7 +23,15 @@ post_sql = '''
     create_date TEXT
     );
 '''
+category_sql = '''
+    CREATE TABLE IF NOT EXISTS category
+    (
+    category_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    category_name TEXT
+    );
+'''
 conn.execute(user_sql)
 conn.execute(post_sql)
+conn.execute(category_sql)
 conn.commit()
 conn.close()

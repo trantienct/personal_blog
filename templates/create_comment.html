@@ -1,0 +1,44 @@
+{% include 'header.html' %}
+<header>
+    <div class="container position-relative px-4 px-lg-5">
+                <div class="row gx-4 gx-lg-5 justify-content-center">
+                    <div class="col-md-10 col-lg-8 col-xl-7">
+                        <div class="page-heading">
+                            <h1>dashboard</h1>
+                            <span class="subheading">Welcome, {{ user }}</span>
+                        </div>
+                    </div>
+                </div>
+            </div></header>
+<main class ='mb-4'>
+    <div class ="container px-4 px-lg-5">
+    <h1>Comment Form</h1>
+    <form action="/save_comment" method="post">
+        <input type="text" name="name" placeholder="Your name:" class="form-control">
+        <input type="text" placeholder="Email..." name="email" class="form-control">
+        <label>Subject:</label>
+        <div class="form-group">
+        <input  type="checkbox" name="subject" value="Subject 1"><label>Subject 1</label>
+        <input  type="checkbox" name="subject" value="Subject 2"><label>Subject 2</label>
+        </div>
+        <div class="form-group">
+        <input type="radio" name="gender" value="1"><label>Male</label>
+        <input type="radio" name="gender" value="2"><label>Female</label>
+        <input type="radio" name="gender" value="3"><label>Other</label>
+        </div>
+        <select class="form-select" name="country">
+            <option>Viet Nam</option>
+            <option>Thailand</option>
+            <option>China</option>
+        </select>
+        <textarea class= form-control rows="5" name="message"></textarea>
+        <div>
+            <button type="submit" name="submit">Save comment</button>
+            <button type="reset" name="reset">Cancel</button>
+        </div>
+
+    </form>
+
+    </div>
+</main>
+{% include 'footer.html' %}

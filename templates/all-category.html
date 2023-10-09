@@ -6,7 +6,7 @@
                     <div class="col-md-10 col-lg-8 col-xl-7">
                         <div class="page-heading">
                             <h1>Dashboard</h1>
-                            <span class="subheading">{{ session.get('username') }}</span>
+                            <span class="subheading">Welcome, {{ user }}</span>
                         </div>
                     </div>
                 </div>
@@ -24,14 +24,31 @@
                                 <li><a href="/all-post">All Posts</a></li>
                                 <li>Category</li>
                                 <li><a href="/dashboard/new-category">New Category</a></li>
-                                <li><a href="/all-categories">All Categories</a></li>
+                                <li><a href="/dashboard/all-categories">All Categories</a></li>
                                 <li>Tag</li>
                             </ul>
                         </div>
                     </div>
                     <div class="col-md-9 col-lg-9 col-xl-9">
                         <div class="row">
-                            <a href="/log_out" class="link-primary">logout</a>
+                            <div class="col-md-12">
+                                <table class="table">
+                                    <tr>
+                                        <td>ID</td>
+                                        <td>Category Name</td>
+                                        <td colspan="2" class="text-center">Action</td>
+                                    </tr>
+                                    {% for category in category_data %}
+                                    <tr>
+                                        <td>{{ category[0]}}</td>
+                                        <td>{{ category[1]}}</td>
+                                        <td class="text-center"><a href="/dashboard/category?id={{ category[0] }}">Edit</a></td>
+                                        <td class="text-center">Delete</td>
+                                    </tr>
+                                    {% endfor %}
+                                </table>
+
+                            </div>
                         </div>
                     </div>
                 </div>

@@ -32,10 +32,13 @@
                     <div class="col-md-9 col-lg-9 col-xl-9">
                         <div class="row">
                             <div class="col-md-12">
-                                <form action="save_category" method="post">
+                                <form action="/dashboard/save_category" method="post">
                                     <h2> Create New Category</h2>
+                                    {% if session['msg']  %}
+                                        <h4 class="alert alert-danger">{{ session.get('msg') }}</h4>
+                                    {% endif %}
                                      <div class="form-floating">
-                                        <input class="form-control" name="category_name" type="text" placeholder="Category Name" />
+                                        <input class="form-control" name="category_name" value ="{% if session['category_title'] %}{{ session.get('category_title') }} {% endif %}" type="text" placeholder="Category Name" />
                                         <label for="category_name">Name</label>
                                     </div>
                                     <button class="btn btn-primary text-uppercase mt-3" type="submit">Save</button>

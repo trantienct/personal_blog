@@ -10,6 +10,17 @@ user_sql = '''
     fullname TEXT
     );
 '''
+contact_sql = '''
+    CREATE TABLE IF NOT EXISTS contact
+    (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    username TEXT,
+    email TEXT,
+    subject TEXT,
+    gender INTEGER,
+    message TEXT
+    );
+'''
 post_sql = '''
     CREATE TABLE IF NOT EXISTS posts
     (
@@ -33,5 +44,6 @@ category_sql = '''
 conn.execute(user_sql)
 conn.execute(post_sql)
 conn.execute(category_sql)
+conn.execute(contact_sql)
 conn.commit()
 conn.close()

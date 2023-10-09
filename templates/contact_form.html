@@ -14,17 +14,21 @@
     <div class ="container px-4 px-lg-5">
     <h1>Contack Form</h1>
     <form action="/save_contact" method="post">
-        {% if session['msg1']  %}
-            <h4 class="alert alert-danger">{{ session.get('msg1') }}</h4>
+        {% if session['error_message']  %}
+            <h4 class="alert alert-danger">
+            {% for error in session['error_message'] %}
+            {{ error }} <br/>
+            {% endfor %}
+            </h4>
         {% endif %}
-        <input type="text" name="name" placeholder="Your name:" value="{% if session['name'] %}{{session.get('name')}}{% endif %}" class="form-control">
-        <input type="text" placeholder="Email..." name="email"value="{% if session['email'] %}{{session.get('email')}}{% endif %}" class="form-control">
+        <input type="text" name="name" placeholder="Your name:" value="{% if session['name'] %} {{ session.get('name') }} {% endif %}" class="form-control">
+        <input type="text" placeholder="Email..." name="email"value="{% if session['email'] %} {{ session.get('email') }} {% endif %}" class="form-control">
         <label>Subject:</label>
         <div class="form-group">
-        <input  type="checkbox" name="subject" value="Subject 1"><label>Subject 1</label>
-        <input  type="checkbox" name="subject" value="Subject 2"><label>Subject 2</label>
+        <input type="checkbox" name="subject" value="Subject 1"><label>Subject 1</label>
+        <input type="checkbox" name="subject" value="Subject 2"><label>Subject 2</label>
         </div>
-        <input type="radio" name="type" value="1"><label>General</label>
+        <input type="radio" name="type" value="1" checked><label>General</label>
         <input type="radio" name="type" value="2"><label>Question</label>
         <input type="radio" name="type" value="3"><label>Other</label>
         <textarea class= form-control rows="5" name="message"></textarea>

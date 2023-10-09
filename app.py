@@ -76,32 +76,33 @@ def save_contact():
     sub = request.form.getlist('subject')
     subject = ''
     type1 = request.form['type']
-    if len(sub) >0:
+    if len(sub) > 0:
         for i in range(0, len(sub)):
             if i < (len(sub) - 1):
                 subject = subject + sub[i] + ', '
             else:
                 subject = subject + sub[i]
-    if name or email =='':
-        session['msg1'] = 'Your name or your email is null'
-        session['name'] = name
-        session['email'] = email
+    errorLists = []
+    if name == '':
+        errorLists.append('Your name can not be null')
+    if email == '':
+        errorLists.append('Your email can not be null')
+    if email != '' and email.count('@') == 0:
+        errorLists.append('Your email must have charater:@')
+    if len(errorLists) > 0:
+        session['name'] = request.form['name']
+        session['email'] = request.form['email']
+        session['error_message'] = errorLists
         return redirect(url_for('contact_form'))
-
-        if email.count('@') == 0:
-            session['msg1'] ='Your email must have charater:@'
-            session['name']=name
-            session['email'] = email
-            return redirect(url_for('contact_form'))
-
-        else:
-            print(type1)
-            message = request.form['message']
-            conn.execute('INSERT INTO contact (username,email,subject,gender,message) VALUES(?,?,?,?,?)',(name, email, subject, type1, message))
-            session.pop('msg1')
-            conn.commit()
-            conn.close()
-            return render_template('contact_form.html')
+    else:
+        message = request.form['message']
+        conn.execute('INSERT INTO contact (username,email,subject,gender,message) VALUES(?,?,?,?,?)',(name, email, subject, type1, message))
+        session.pop('error_message')
+        session.pop('name')
+        session.pop('email')
+        conn.commit()
+        conn.close()
+        return render_template('contact_form.html')
 
 
 
